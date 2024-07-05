@@ -1,6 +1,6 @@
 ﻿namespace Barriers
 {
-    partial class Form1
+    partial class Barriers
     {
         /// <summary>
         ///  Required designer variable.
@@ -93,7 +93,12 @@
             panel3_1 = new Panel();
             panel5_1 = new Panel();
             panel1_1 = new Panel();
-            button1 = new Button();
+            timer1 = new Label();
+            timer2 = new Label();
+            name1 = new Label();
+            name2 = new Label();
+            giveup1 = new Button();
+            giveup2 = new Button();
             field.SuspendLayout();
             SuspendLayout();
             // 
@@ -746,14 +751,70 @@
             panel1_1.TabIndex = 0;
             panel1_1.Paint += panel2_Paint;
             // 
-            // button1
+            // timer1
             // 
-            button1.Location = new Point(145, 145);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 1;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
+            timer1.AutoSize = true;
+            timer1.Font = new Font("Lilita One", 47.9999924F);
+            timer1.Location = new Point(213, 331);
+            timer1.Name = "timer1";
+            timer1.Size = new Size(158, 73);
+            timer1.TabIndex = 1;
+            timer1.Text = "1:00";
+            timer1.Click += timer1_Click;
+            // 
+            // timer2
+            // 
+            timer2.AutoSize = true;
+            timer2.Font = new Font("Lilita One", 47.9999924F);
+            timer2.Location = new Point(1573, 331);
+            timer2.Name = "timer2";
+            timer2.Size = new Size(158, 73);
+            timer2.TabIndex = 2;
+            timer2.Text = "1:00";
+            timer2.Click += label2_Click;
+            // 
+            // name1
+            // 
+            name1.AutoSize = true;
+            name1.Font = new Font("Lilita One", 39.75F);
+            name1.Location = new Point(213, 456);
+            name1.Name = "name1";
+            name1.Size = new Size(158, 61);
+            name1.TabIndex = 3;
+            name1.Text = "label1";
+            name1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // name2
+            // 
+            name2.AutoSize = true;
+            name2.Font = new Font("Lilita One", 39.75F);
+            name2.Location = new Point(1573, 456);
+            name2.Name = "name2";
+            name2.Size = new Size(158, 61);
+            name2.TabIndex = 4;
+            name2.Text = "label1";
+            name2.TextAlign = ContentAlignment.MiddleCenter;
+            name2.Click += name2_Click;
+            // 
+            // giveup1
+            // 
+            giveup1.Font = new Font("Lilita One", 20.2499981F);
+            giveup1.Location = new Point(233, 579);
+            giveup1.Name = "giveup1";
+            giveup1.Size = new Size(120, 50);
+            giveup1.TabIndex = 5;
+            giveup1.Text = "Resign";
+            giveup1.UseVisualStyleBackColor = true;
+            // 
+            // giveup2
+            // 
+            giveup2.Font = new Font("Lilita One", 20.2499981F);
+            giveup2.Location = new Point(1593, 579);
+            giveup2.Name = "giveup2";
+            giveup2.Size = new Size(120, 50);
+            giveup2.TabIndex = 6;
+            giveup2.Text = "Resign";
+            giveup2.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -761,7 +822,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1904, 1041);
-            Controls.Add(button1);
+            Controls.Add(giveup2);
+            Controls.Add(giveup1);
+            Controls.Add(name2);
+            Controls.Add(name1);
+            Controls.Add(timer2);
+            Controls.Add(timer1);
             Controls.Add(field);
             MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(1920, 1080);
@@ -770,6 +836,7 @@
             Load += Form1_Load;
             field.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -839,6 +906,12 @@
         private Panel panel3_1;
         private Panel panel5_1;
         private Panel panel1_1;
-        private Button button1;
+        private List<Panel> panels;
+        private Label timer1;
+        private Label timer2;
+        private Label name1;
+        private Label name2;
+        private Button giveup1;
+        private Button giveup2;
     }
 }

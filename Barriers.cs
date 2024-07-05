@@ -1,8 +1,8 @@
 namespace Barriers
 {
-    public partial class Form1 : Form
+    public partial class Barriers : Form
     {
-        public Form1()
+        public Barriers()
         {
             InitializeComponent();
         }
@@ -23,6 +23,21 @@ namespace Barriers
         }
 
         private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timer1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void name2_Click(object sender, EventArgs e)
         {
 
         }

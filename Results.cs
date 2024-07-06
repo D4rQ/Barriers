@@ -12,14 +12,23 @@ namespace Barriers
 {
     public partial class Results : Form
     {
-        public Results()
+        public Results(string text)
         {
             InitializeComponent();
+            label1.Text = text;
+            FormClosing += (sender, e) => System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }

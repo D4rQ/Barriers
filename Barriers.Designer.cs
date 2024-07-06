@@ -93,12 +93,14 @@
             panel3_1 = new Panel();
             panel5_1 = new Panel();
             panel1_1 = new Panel();
+            horizontalLine = new Panel();
             timer1 = new Label();
             timer2 = new Label();
             name1 = new Label();
             name2 = new Label();
             giveup1 = new Button();
             giveup2 = new Button();
+            verticalLine = new Panel();
             field.SuspendLayout();
             SuspendLayout();
             // 
@@ -751,6 +753,16 @@
             panel1_1.TabIndex = 0;
             panel1_1.Paint += panel2_Paint;
             // 
+            // horizontalLine
+            // 
+            horizontalLine.BackColor = Color.IndianRed;
+            horizontalLine.Location = new Point(618, 176);
+            horizontalLine.Name = "horizontalLine";
+            horizontalLine.RightToLeft = RightToLeft.No;
+            horizontalLine.Size = new Size(96, 15);
+            horizontalLine.TabIndex = 7;
+            horizontalLine.Visible = false;
+            // 
             // timer1
             // 
             timer1.AutoSize = true;
@@ -794,7 +806,6 @@
             name2.TabIndex = 4;
             name2.Text = "label1";
             name2.TextAlign = ContentAlignment.MiddleCenter;
-            name2.Click += name2_Click;
             // 
             // giveup1
             // 
@@ -805,6 +816,7 @@
             giveup1.TabIndex = 5;
             giveup1.Text = "Resign";
             giveup1.UseVisualStyleBackColor = true;
+            giveup1.Click += giveup1_Click;
             // 
             // giveup2
             // 
@@ -815,13 +827,26 @@
             giveup2.TabIndex = 6;
             giveup2.Text = "Resign";
             giveup2.UseVisualStyleBackColor = true;
+            giveup2.Click += giveup2_Click;
             // 
-            // Form1
+            // verticalLine
+            // 
+            verticalLine.BackColor = Color.IndianRed;
+            verticalLine.Location = new Point(610, 184);
+            verticalLine.Name = "verticalLine";
+            verticalLine.RightToLeft = RightToLeft.No;
+            verticalLine.Size = new Size(15, 96);
+            verticalLine.TabIndex = 8;
+            verticalLine.Visible = false;
+            // 
+            // Barriers
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1904, 1041);
+            Controls.Add(verticalLine);
+            Controls.Add(horizontalLine);
             Controls.Add(giveup2);
             Controls.Add(giveup1);
             Controls.Add(name2);
@@ -831,7 +856,7 @@
             Controls.Add(field);
             MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(1920, 1080);
-            Name = "Form1";
+            Name = "Barriers";
             Text = "Barriers";
             Load += Form1_Load;
             field.ResumeLayout(false);
@@ -913,5 +938,7 @@
         private Label name2;
         private Button giveup1;
         private Button giveup2;
+        private Panel horizontalLine;
+        private Panel verticalLine;
     }
 }

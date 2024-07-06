@@ -15,6 +15,7 @@ namespace Barriers
         public Menu()
         {
             InitializeComponent();
+            FormClosing += (sender, e) => System.Diagnostics.Process.GetCurrentProcess().Kill();
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -5,6 +5,7 @@ namespace Barriers
         private int state = 0; // 0 - выбор первовй клетки, 1 - выбор второй клетки
         private bool[,] states = new bool[10, 10]; // Состояния клеток: false - свободна, true - занята
         private List<Panel> lines = new List<Panel>();
+        private Tuple<int, int> previousPanel = new Tuple<int, int>(-1, -1); // Кортеж с x и y для отмены хода
         public Barriers()
         {
             InitializeComponent();
@@ -142,6 +143,7 @@ namespace Barriers
                 if (!states[x + 1, y] && right != null)  right!.BackColor = Color.Red;
                 panel.BackColor = Color.Gray;
                 states[x, y] = true;
+                previousPanel = Tuple.Create(x, y);
                 state = 1;
             }
             else
@@ -182,7 +184,10 @@ namespace Barriers
                     foreach (var p in panels)
                     {
                         p.BackColor = SystemColors.Control;
+                        states[x, y] = false;
+
                     }
+                    if (previousPanel.Item1 != -1 && previousPanel.Item2 != -1) states[previousPanel.Item1, previousPanel.Item2] = false;
                 }
                 state = 0;
             }

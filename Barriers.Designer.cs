@@ -101,7 +101,15 @@
             giveup1 = new Button();
             giveup2 = new Button();
             verticalLine = new Panel();
+            red = new Panel();
+            yellow = new Panel();
+            blue = new Panel();
+            orange = new Panel();
+            purple = new Panel();
+            green = new Panel();
+            background = new Panel();
             field.SuspendLayout();
+            background.SuspendLayout();
             SuspendLayout();
             // 
             // field
@@ -171,7 +179,7 @@
             field.Controls.Add(panel3_1);
             field.Controls.Add(panel5_1);
             field.Controls.Add(panel1_1);
-            field.Location = new Point(570, 136);
+            field.Location = new Point(569, 135);
             field.Name = "field";
             field.Size = new Size(768, 768);
             field.TabIndex = 0;
@@ -756,7 +764,7 @@
             // horizontalLine
             // 
             horizontalLine.BackColor = Color.IndianRed;
-            horizontalLine.Location = new Point(618, 176);
+            horizontalLine.Location = new Point(617, 175);
             horizontalLine.Name = "horizontalLine";
             horizontalLine.RightToLeft = RightToLeft.No;
             horizontalLine.Size = new Size(96, 15);
@@ -767,7 +775,7 @@
             // 
             timer1.AutoSize = true;
             timer1.Font = new Font("Lilita One", 47.9999924F);
-            timer1.Location = new Point(213, 331);
+            timer1.Location = new Point(212, 330);
             timer1.Name = "timer1";
             timer1.Size = new Size(158, 73);
             timer1.TabIndex = 1;
@@ -778,7 +786,7 @@
             // 
             timer2.AutoSize = true;
             timer2.Font = new Font("Lilita One", 47.9999924F);
-            timer2.Location = new Point(1573, 331);
+            timer2.Location = new Point(1572, 330);
             timer2.Name = "timer2";
             timer2.Size = new Size(158, 73);
             timer2.TabIndex = 2;
@@ -789,7 +797,7 @@
             // 
             name1.AutoSize = true;
             name1.Font = new Font("Lilita One", 39.75F);
-            name1.Location = new Point(213, 456);
+            name1.Location = new Point(212, 455);
             name1.Name = "name1";
             name1.Size = new Size(158, 61);
             name1.TabIndex = 3;
@@ -800,7 +808,7 @@
             // 
             name2.AutoSize = true;
             name2.Font = new Font("Lilita One", 39.75F);
-            name2.Location = new Point(1573, 456);
+            name2.Location = new Point(1572, 455);
             name2.Name = "name2";
             name2.Size = new Size(158, 61);
             name2.TabIndex = 4;
@@ -810,7 +818,7 @@
             // giveup1
             // 
             giveup1.Font = new Font("Lilita One", 20.2499981F);
-            giveup1.Location = new Point(233, 579);
+            giveup1.Location = new Point(232, 578);
             giveup1.Name = "giveup1";
             giveup1.Size = new Size(120, 50);
             giveup1.TabIndex = 5;
@@ -821,7 +829,7 @@
             // giveup2
             // 
             giveup2.Font = new Font("Lilita One", 20.2499981F);
-            giveup2.Location = new Point(1593, 579);
+            giveup2.Location = new Point(1592, 578);
             giveup2.Name = "giveup2";
             giveup2.Size = new Size(120, 50);
             giveup2.TabIndex = 6;
@@ -832,12 +840,95 @@
             // verticalLine
             // 
             verticalLine.BackColor = Color.IndianRed;
-            verticalLine.Location = new Point(610, 184);
+            verticalLine.Location = new Point(609, 183);
             verticalLine.Name = "verticalLine";
             verticalLine.RightToLeft = RightToLeft.No;
             verticalLine.Size = new Size(15, 96);
             verticalLine.TabIndex = 8;
             verticalLine.Visible = false;
+            // 
+            // red
+            // 
+            red.BackColor = Color.Red;
+            red.Cursor = Cursors.Hand;
+            red.Location = new Point(168, 750);
+            red.Name = "red";
+            red.Size = new Size(75, 75);
+            red.TabIndex = 9;
+            red.Click += red_Click;
+            // 
+            // yellow
+            // 
+            yellow.BackColor = Color.Yellow;
+            yellow.Cursor = Cursors.Hand;
+            yellow.Location = new Point(249, 750);
+            yellow.Name = "yellow";
+            yellow.Size = new Size(75, 75);
+            yellow.TabIndex = 10;
+            yellow.Click += yellow_Click;
+            // 
+            // blue
+            // 
+            blue.BackColor = Color.Blue;
+            blue.Cursor = Cursors.Hand;
+            blue.Location = new Point(330, 750);
+            blue.Name = "blue";
+            blue.Size = new Size(75, 75);
+            blue.TabIndex = 10;
+            blue.Click += blue_Click;
+            // 
+            // orange
+            // 
+            orange.BackColor = Color.DarkOrange;
+            orange.Cursor = Cursors.Hand;
+            orange.Location = new Point(1690, 750);
+            orange.Name = "orange";
+            orange.Size = new Size(75, 75);
+            orange.TabIndex = 13;
+            orange.Click += orange_Click;
+            // 
+            // purple
+            // 
+            purple.BackColor = Color.Purple;
+            purple.Cursor = Cursors.Hand;
+            purple.Location = new Point(1609, 750);
+            purple.Name = "purple";
+            purple.Size = new Size(75, 75);
+            purple.TabIndex = 12;
+            purple.Click += purple_Click;
+            // 
+            // green
+            // 
+            green.BackColor = Color.Green;
+            green.Cursor = Cursors.Hand;
+            green.Location = new Point(1528, 750);
+            green.Name = "green";
+            green.Size = new Size(75, 75);
+            green.TabIndex = 11;
+            green.Click += green_Click;
+            // 
+            // background
+            // 
+            background.BackColor = Color.Transparent;
+            background.Controls.Add(orange);
+            background.Controls.Add(blue);
+            background.Controls.Add(purple);
+            background.Controls.Add(green);
+            background.Controls.Add(yellow);
+            background.Controls.Add(red);
+            background.Controls.Add(verticalLine);
+            background.Controls.Add(horizontalLine);
+            background.Controls.Add(giveup2);
+            background.Controls.Add(giveup1);
+            background.Controls.Add(name2);
+            background.Controls.Add(name1);
+            background.Controls.Add(timer2);
+            background.Controls.Add(timer1);
+            background.Controls.Add(field);
+            background.Location = new Point(1, 1);
+            background.Name = "background";
+            background.Size = new Size(1902, 1040);
+            background.TabIndex = 14;
             // 
             // Barriers
             // 
@@ -845,23 +936,16 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(1904, 1041);
-            Controls.Add(verticalLine);
-            Controls.Add(horizontalLine);
-            Controls.Add(giveup2);
-            Controls.Add(giveup1);
-            Controls.Add(name2);
-            Controls.Add(name1);
-            Controls.Add(timer2);
-            Controls.Add(timer1);
-            Controls.Add(field);
+            Controls.Add(background);
             MaximumSize = new Size(1920, 1080);
             MinimumSize = new Size(1920, 1080);
             Name = "Barriers";
             Text = "Barriers";
             Load += Form1_Load;
             field.ResumeLayout(false);
+            background.ResumeLayout(false);
+            background.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -931,7 +1015,6 @@
         private Panel panel3_1;
         private Panel panel5_1;
         private Panel panel1_1;
-        private List<Panel> panels;
         private Label timer1;
         private Label timer2;
         private Label name1;
@@ -940,5 +1023,12 @@
         private Button giveup2;
         private Panel horizontalLine;
         private Panel verticalLine;
+        private Panel red;
+        private Panel yellow;
+        private Panel blue;
+        private Panel orange;
+        private Panel purple;
+        private Panel green;
+        private Panel background;
     }
 }

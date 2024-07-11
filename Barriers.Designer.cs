@@ -774,6 +774,7 @@
             // timer1
             // 
             timer1.AutoSize = true;
+            timer1.BackColor = Color.Transparent;
             timer1.Font = new Font("Lilita One", 47.9999924F);
             timer1.Location = new Point(212, 330);
             timer1.Name = "timer1";
@@ -785,6 +786,7 @@
             // timer2
             // 
             timer2.AutoSize = true;
+            timer2.BackColor = Color.Transparent;
             timer2.Font = new Font("Lilita One", 47.9999924F);
             timer2.Location = new Point(1572, 330);
             timer2.Name = "timer2";
@@ -796,6 +798,7 @@
             // name1
             // 
             name1.AutoSize = true;
+            name1.BackColor = Color.Transparent;
             name1.Font = new Font("Lilita One", 39.75F);
             name1.Location = new Point(212, 455);
             name1.Name = "name1";
@@ -807,6 +810,7 @@
             // name2
             // 
             name2.AutoSize = true;
+            name2.BackColor = Color.Transparent;
             name2.Font = new Font("Lilita One", 39.75F);
             name2.Location = new Point(1572, 455);
             name2.Name = "name2";
@@ -880,7 +884,7 @@
             // orange
             // 
             orange.BackColor = Color.DarkOrange;
-            orange.Cursor = Cursors.Hand;
+            orange.Cursor = Cursors.No;
             orange.Location = new Point(1690, 750);
             orange.Name = "orange";
             orange.Size = new Size(75, 75);
@@ -890,7 +894,7 @@
             // purple
             // 
             purple.BackColor = Color.Purple;
-            purple.Cursor = Cursors.Hand;
+            purple.Cursor = Cursors.No;
             purple.Location = new Point(1609, 750);
             purple.Name = "purple";
             purple.Size = new Size(75, 75);
@@ -900,7 +904,7 @@
             // green
             // 
             green.BackColor = Color.Green;
-            green.Cursor = Cursors.Hand;
+            green.Cursor = Cursors.No;
             green.Location = new Point(1528, 750);
             green.Name = "green";
             green.Size = new Size(75, 75);

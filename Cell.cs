@@ -9,13 +9,20 @@ namespace Barriers
     public class Cell
     {
         public string Name { get; set; }
-        public Relation[]? Relation { get; set; }
+        public List<Relation> Relations { get; set; }
         public bool Bomb { get; set; }
 
         public Cell(Panel panel)
         {
             Name = panel.Name;
-            Relation = new Relation[2];
+            Relations = new List<Relation>();
+        }
+
+        public (int, int) GetCoords()
+        {
+            int x = int.Parse(Name[5].ToString());
+            int y = int.Parse(Name[7].ToString());
+            return new (x, y);
         }
     }
 

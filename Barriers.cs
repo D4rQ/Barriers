@@ -40,8 +40,8 @@ namespace Barriers
             foreach (var cell in field.Controls)
             {
                 var name = ((Panel)cell).Name;
-                var x = int.Parse(name[7].ToString());
-                var y = int.Parse(name[5].ToString());
+                var x = int.Parse(name[5].ToString());
+                var y = int.Parse(name[7].ToString());
                 cells[x - 1, y - 1] = new Cell((Panel)cell);
                 ((Panel)cell).Click += (sender, e) => panels_Click(sender!, e, (Panel)cell);
             }
@@ -101,17 +101,14 @@ namespace Barriers
 
         private void panels_Click(object sender, EventArgs e, Panel panel) // та самая палка с отдачей 1000 (метод, в котором логика всей игры)
         {
-            if (panel.Cursor == Cursors.No) return;
-            var x = int.Parse(panel.Name[7].ToString());
-            var y = int.Parse(panel.Name[5].ToString());
+            var x = int.Parse(panel.Name[5].ToString());
+            var y = int.Parse(panel.Name[7].ToString());
             if (state == 0)
             {
                 current = cells[x - 1, y - 1];
-                panel.BackColor = Color.White;
                 DisablePanels();
-                CheckPositions(current!);
+                CheckPositions(current);
                 state = 1;
-
             }
             else
             {
@@ -123,42 +120,15 @@ namespace Barriers
                     state = 0;
                     return;
                 }
-                panel.BackColor = Color;
-                field.Controls[current!.Name]!.BackColor = Color;
-                state = 0;
-                if (turn == 0)
-                {
-                    StupidColorClick("green");
-                    ResetTimer();
-                    timer.Tick -= first;
-                    timer.Tick += second;
-                    timer2.Text = "1:00";
-                    timer2.Visible = true;
-                    timer1.Visible = false;
-                    giveup2.Visible = true;
-                    giveup1.Visible = false;
-                    turn = 1;
-                    timer.Start();
-                }
-                else
-                {
-                    StupidColorClick("red");
-                    ResetTimer();
-                    timer.Tick -= second;
-                    timer.Tick += first;
-                    timer1.Text = "1:00";
-                    timer1.Visible = true;
-                    timer2.Visible = false;
-                    giveup1.Visible = true;
-                    giveup2.Visible = false;
-                    timer.Start();
-                    turn = 0;
-
-                }
-                ChangeColors();
+                current.Relations.Add(new Relation() { Second = cells[x - 1, y - 1], Color = Color });
+                cells[x - 1, y - 1].Relations.Add(new Relation() { Color = Color, Second = current });
+                //field.Controls[current!.Name]!.BackColor = Color;
+                //field.Controls[cells[x - 1, y - 1]!.Name]!.BackColor = Color;
+                PaintLine(current, cells[x - 1, y - 1]);
+                ChangeTurns(ref turn);
                 EnablePanels();
-                current.Relations.Add(new Relation() { Second = cells[y - 1, x - 1], Color = Color });
-                cells[y - 1, x - 1].Relations.Add(new Relation() { Color = Color, Second = current });
+                ChangeColors();
+                state = 0;
             }
         }
 
@@ -267,26 +237,28 @@ namespace Barriers
         {
             foreach (var item in field.Controls)
             {
-                var panel = ((Panel)item);
-                if (panel.Name.Length == 5) break;
-                var x = int.Parse(panel.Name[7].ToString());
-                var y = int.Parse(panel.Name[5].ToString());
+                var panel = (Panel)item;
+                if (panel.Name.Length == 5) continue;
+                var x = int.Parse(panel.Name[5].ToString());
+                var y = int.Parse(panel.Name[7].ToString());
                 if (cells[x - 1, y - 1].Relations.Count < 2)
                 {
-                    ((Panel)item).Cursor = Cursors.Hand;
-                    //((Panel)item).BackColor = SystemColors.Control;
+                    panel.Cursor = Cursors.Hand;
+                    if (panel.BackColor == Color.Gray)
+                        panel.BackColor = SystemColors.Control;
                 }
             }
+
         }
 
         private void CheckPositions(Cell cell)
         {
             int x, y;
             (x, y) = cell.GetCoords();
-            var up = x >= 1 && y >= 2 && x <= 8 && y <= 9 ? cells[x - 1, y - 2] : trash;
-            var down = x >= 1 && y >= 0 && x <= 8 && y <= 7 ? cells[x - 1, y] : trash;
-            var left = x >= 2 && y >= 1 && x <= 9 && y <= 8 ? cells[x - 2, y - 1] : trash;
-            var right = x >= 0 && y >= 1 && x <= 7 && y <= 8 ? cells[x, y - 1] : trash;
+            var up = x >= 2 && y >= 1 && x <= 9 && y <= 8 ? cells[x - 2, y - 1] : trash;
+            var down = x >= 0 && y >= 1 && x <= 7 && y <= 8 ? cells[x, y - 1] : trash;
+            var left = x >= 1 && y >= 2 && x <= 8 && y <= 9 ? cells[x - 1, y - 2] : trash;
+            var right = x >= 1 && y >= 0 && x <= 8 && y <= 7 ? cells[x - 1, y] : trash;
 
             foreach (var item in new Cell[] { up, down, left, right })
             {
@@ -296,15 +268,15 @@ namespace Barriers
                     (x1, y1) = item.GetCoords();
                     if (item.Relations.Count == 0)
                     {
-                        field.Controls[$"panel{y1}_{x1}"]!.Cursor = Cursors.Hand; // Всей душой люблю матрицы, в следующий раз буду их именовать в декартовых координатах
-                        field.Controls[$"panel{y1}_{x1}"]!.BackColor = Color.Gray;
+                        field.Controls[$"panel{x1}_{y1}"]!.Cursor = Cursors.Hand;
+                        field.Controls[$"panel{x1}_{y1}"]!.BackColor = Color.Gray;
                     }
                     else if (item.Relations.Count == 1)
                     {
                         if (antipods[Color] == item.Relations.First().Color && item.Relations.First().Second != cell)
                         {
-                            field.Controls[$"panel{y1}_{x1}"]!.Cursor = Cursors.Hand; 
-                            field.Controls[$"panel{y1}_{x1}"]!.BackColor = Color.Gray;
+                            field.Controls[$"panel{x1}_{y1}"]!.Cursor = Cursors.Hand;
+                            field.Controls[$"panel{x1}_{y1}"]!.BackColor = Color.Gray;
                         }
                     }
                 }
@@ -312,46 +284,71 @@ namespace Barriers
             field.Controls[cell.Name]!.Cursor = Cursors.Hand;
         }
 
-        private void Render()
+        private void ChangeTurns(ref int turn)
         {
-            foreach (var cell in cells)
-            {
-                (var x1, var y1) = cell.GetCoords();
-                if (cell.Relations.Count == 1)
-                {
-                    var first = cell.Relations.First().Second;
-                    (var x2, var y2) = first!.GetCoords();
-                    if (x1 < x2 || y1 < y2)
-                        PaintLine(cell.Name, first.Name);
-                }
-                if (cell.Relations.Count == 2)
-                {
-                    var second = cell.Relations.Skip(1).First().Second;
-                    (var x3, var y3) = second!.GetCoords();
-                    if (x1 < x3 || y1 < y3)
-                        PaintLine(cell.Name, second.Name);
-                }
-            }
+            var cond = turn == 0;
+            StupidColorClick(cond ? "green" : "red");
+            ResetTimer();
+            timer.Tick -= cond ? first : second;
+            timer.Tick += cond ? second : first;
+            timer2.Text = "1:00";
+            timer2.Visible = cond;
+            timer1.Visible = !cond;
+            giveup2.Visible = cond;
+            giveup1.Visible = !cond;
+            turn = Math.Abs(turn - 1);
+            timer.Start();
         }
 
-        private void PaintLine(string c1, string c2)
+        //private void Render()
+        //{
+        //    foreach (var cell in cells)
+        //    {
+        //        (var x1, var y1) = cell.GetCoords();
+        //        if (cell.Relations.Count == 1)
+        //        {
+        //            var first = cell.Relations.First().Second;
+        //            (var x2, var y2) = first!.GetCoords();
+        //            if (x1 < x2 || y1 < y2)
+        //                PaintLine(cell.Name, first.Name);
+        //        }
+        //        if (cell.Relations.Count == 2)
+        //        {
+        //            var second = cell.Relations.Skip(1).First().Second;
+        //            (var x3, var y3) = second!.GetCoords();
+        //            if (x1 < x3 || y1 < y3)
+        //                PaintLine(cell.Name, second.Name);
+        //        }
+        //    }
+        //}
+
+        private void PaintLine(Cell c1, Cell c2)
         {
-            var cell1 = cells[int.Parse(c1[7].ToString()) - 1, int.Parse(c1[5].ToString()) - 1];
-            var cell2 = cells[int.Parse(c2[7].ToString()) - 1, int.Parse(c2[5].ToString()) - 1];
+            //var x = Math.Min(int.Parse(c1.Name[7].ToString()), int.Parse(c2.Name[7].ToString())) - 1;
+            //var y = Math.Min(int.Parse(c1.Name[5].ToString()), int.Parse(c2.Name[5].ToString())) - 1;
+            (var x1, var y1) = c1.GetCoords();
+            (var x2, var y2) = c2.GetCoords();
 
-            (var x1, var y1) = cell1.GetCoords();
-            (var x2, var y2) = cell2.GetCoords();
+            if (x1 == x2) PaintHorizontal(c1, c2);
+            if (y1 == y2) PaintVertical(c1, c2);
+        }
 
-            if (x1 < x2)
-            {
-                field.Controls.Add(new Panel() { Size = horizontalLine.Size, Location = new Point((y1 - 1) * 96 - 48, (x1 - 1) * 96 + 40), Visible = true, BackColor = Color, Name = $"{x1}{y1}+{x2}{y2}" });
-                field.Controls[field.Controls.Count - 1].BringToFront();
-            }
-            if (y1 < y2)
-            {
-                field.Controls.Add(new Panel() { Size = verticalLine.Size, Location = new Point((y1 - 1) * 96 + 40, (x1 - 1) * 96 - 48), Visible = true, BackColor = Color, Name = $"{x1}{y1}+{x2}{y2}" });
-                field.Controls[field.Controls.Count - 1].BringToFront();
-            }
+        private void PaintHorizontal(Cell c1, Cell c2)
+        {
+            var x = Math.Min(int.Parse(c1.Name[7].ToString()), int.Parse(c2.Name[7].ToString())) - 1;
+            var y = Math.Min(int.Parse(c1.Name[5].ToString()), int.Parse(c2.Name[5].ToString())) - 1;
+
+            field.Controls.Add(new Panel() { Size = horizontalLine.Size, Location = new Point(48 + 96 * x, 40 + 96 * y), BackColor = Color, Name = $"{c1.Name[5]}{c1.Name[7]}_{c2.Name[5]}{c2.Name[7]}" });
+            field.Controls[field.Controls.Count - 1].BringToFront();
+        }
+
+        private void PaintVertical(Cell c1, Cell c2)
+        {
+            var x = Math.Min(int.Parse(c1.Name[7].ToString()), int.Parse(c2.Name[7].ToString())) - 1;
+            var y = Math.Min(int.Parse(c1.Name[5].ToString()), int.Parse(c2.Name[5].ToString())) - 1;
+
+            field.Controls.Add(new Panel() { Size = verticalLine.Size, Location = new Point(40 + 96 * x, 48 + 96 * y), BackColor = Color, Name = $"{c1.Name[5]}{c1.Name[7]}_{c2.Name[5]}{c2.Name[7]}" });
+            field.Controls[field.Controls.Count - 1].BringToFront();
         }
     }
 }
